@@ -8,7 +8,7 @@
           v-bind="employee" />
       </div>
 
-      <LeetSpinner v-if="!allAreShown" ref="spinner" />
+      <LeetSpinner v-show="spinnerIsVisible" ref="spinner" />
     </div>
 
     <div v-if="!employeesFiltered.length">
@@ -56,8 +56,10 @@ export default {
         return worksAtOffice && (!nameFilterIsApplied || matchesNameFilter);
       });
     },
-    allAreShown() {
-      return this.amountShown >= this.employees.length;
+    spinnerIsVisible() {
+      // stop showing spinner if for current filter no additional employees can be shown
+      const allAreShown = this.amountShown >= this.employeesFiltered.length;
+      return !allAreShown;
     },
   },
 
