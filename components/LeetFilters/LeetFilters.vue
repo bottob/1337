@@ -1,12 +1,18 @@
 <template>
-  <div>
-    <div>
+  <section :class="$style.root">
+    <header>
+      <LeetTitle tag="h3">
+        Filter employees
+      </LeetTitle>
+    </header>
+
+    <div :class="$style.fieldCtn">
       <LeetTitle tag="h4" size="s">
         Offices
       </LeetTitle>
 
-      <div>
-        <div>
+      <div :class="$style.checkboxList">
+        <div :class="$style.checkboxCtn">
           <input
             id="office-all"
             v-model="allOfficesAreSelected"
@@ -19,12 +25,14 @@
           </LeetTitle>
         </div>
 
-        <div v-for="office in availableOffices" :key="office">
+        <div
+          v-for="office in availableOffices"
+          :key="office"
+          :class="$style.checkboxCtn">
           <input
             :id="`office-${office}`"
             v-model="selectedOfficesComputed"
             :value="office"
-            name="offices"
             type="checkbox">
           <LeetTitle tag="label" size="xs" :for="`office-${office}`">
             {{ office }}
@@ -33,14 +41,14 @@
       </div>
     </div>
 
-    <div>
-      <LeetTitle tag="h4" size="s">
+    <div :class="$style.fieldCtn">
+      <LeetTitle tag="label" size="s" for="name">
         Name
       </LeetTitle>
 
-      <input v-model="nameFilterComputed" type="text">
+      <input id="name" v-model="nameFilterComputed" type="text">
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -143,3 +151,33 @@ export default {
   },
 };
 </script>
+
+<style module lang="scss">
+%stack {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.root {
+  @extend %stack;
+  grid-gap: var(--space-m);
+}
+
+.fieldCtn {
+  @extend %stack;
+  grid-gap: var(--space-s);
+  max-width: 15rem;
+}
+
+.checkboxList {
+  @extend %stack;
+  grid-gap: var(--space-xxs);
+}
+
+.checkboxCtn {
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 1fr;
+  grid-gap: var(--space-xs);
+}
+</style>

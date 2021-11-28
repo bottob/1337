@@ -30,6 +30,7 @@
   --font-size-l: 2rem;
 
   /* === SPACE === */
+  --space-xxs: 0.25rem;
   --space-xs: 0.5rem;
   --space-s: 0.75rem;
   --space-m: 1.25rem;
