@@ -29,6 +29,14 @@ export default {
       },
     };
   },
+
+  async asyncData() {
+    const ENDPOINT = 'https://api.1337co.de/v3/employees';
+    // TODO: use polyfill or axios for better browser compatibility
+    const response = await fetch(ENDPOINT, { headers: { Authorization: process.env.API_KEY } });
+    const employees = await response.json();
+    return { employees };
+  },
 };
 </script>
 
