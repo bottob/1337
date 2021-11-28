@@ -82,10 +82,13 @@ export default {
     */
     selectedOfficesComputed: {
       get() {
-        return this.selectedOffices;
+        // if "All" option is enabled, select all offices
+        return this.allOfficesAreSelected ?
+          this.availableOffices :
+          this.selectedOffices;
       },
       set(val) {
-        this.$emit('filter-by-office', val);
+        this.updateOffices(val);
       },
     },
     nameFilterComputed: {
@@ -93,7 +96,7 @@ export default {
         return this.nameFilter;
       },
       set(val) {
-        this.$emit('filter-by-name', val);
+        this.updateName(val);
       },
     },
   },
@@ -112,16 +115,22 @@ export default {
   },
 
   methods: {
+    updateOffices(val) {
+      this.$emit('filter-by-office', val);
+    },
+    updateName(val) {
+      this.$emit('filter-by-name', val);
+    },
     onAllToggle(e) {
       const isChecked = e.target.checked;
 
       /* If "All" option is manually being checked, select all offices */
       if (isChecked) {
-        this.$emit('filter-by-office', this.availableOffices);
+        this.updateOffices(this.availableOffices);
       }
       else {
         /* If "All" option is manually being unchecked, unselect all offices */
-        this.$emit('filter-by-office', []);
+        this.updateOffices([]);
       }
       this.allOfficesAreSelected = isChecked;
     },
