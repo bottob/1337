@@ -86,6 +86,8 @@ export default {
 </script>
 
 <style module lang="scss">
+@use '@/assets/styles/media-queries' as mq;
+
 %stack {
   display: grid;
   grid-template-columns: 1fr;
@@ -98,8 +100,20 @@ export default {
 
 .grid {
   display: grid;
-  /* fit as many cards per row as possible, each being at least 15rem wide */
-  grid-template-columns: repeat(auto-fit, minmax(15rem, auto));
   grid-gap: var(--space-m);
+  /* this fluid grid would have been nice, but when the filter gives only 1 person, that card will be gigantic :) */
+  // grid-template-columns: repeat(auto-fit, minmax(15rem, auto));
+  /* More boring, but better solution: */
+  grid-template-columns: repeat(4, 1fr);
+
+  @include mq.tablet {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @include mq.landscape {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include mq.handheld {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 </style>
