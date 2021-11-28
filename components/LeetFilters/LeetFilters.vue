@@ -8,7 +8,7 @@
 
     <div :class="$style.fieldCtn">
       <LeetTitle tag="h4" size="s">
-        Offices
+        By office
       </LeetTitle>
 
       <div :class="$style.checkboxList">
@@ -43,7 +43,7 @@
 
     <div :class="$style.fieldCtn">
       <LeetTitle tag="label" size="s" for="name">
-        Name
+        By name
       </LeetTitle>
 
       <input id="name" v-model="nameFilterComputed" type="text">
