@@ -1,5 +1,19 @@
 <template>
   <div>
+    <LeetFilters
+      :available-offices="availableOffices"
+      :selected-offices="selectedOffices"
+      @filter-offices="filterOffices" />
+
+    <br>
+
+    <div :class="$style.grid">
+      <LeetEmployeeCard
+        v-for="employee in employeesFiltered.slice(0, 15)"
+        :key="employee.name"
+        v-bind="employee" />
+    </div>
+
     <LeetTitle>Hello world</LeetTitle>
 
     <br>
@@ -12,13 +26,15 @@
 
 <script>
 import LeetEmployeeCard from '@/components/LeetEmployeeCard';
+import LeetFilters from '@/components/LeetFilters';
 import LeetTitle from '@/components/LeetTitle';
 
 export default {
-  components: { LeetTitle, LeetEmployeeCard },
+  components: { LeetTitle, LeetFilters, LeetEmployeeCard },
 
   data() {
     return {
+      selectedOffices: [],
       test: {
         name: 'Octocat',
         office: 'Stockholm',
@@ -40,23 +56,53 @@ export default {
           [],
         );
     },
+    employeesFiltered() {
+      return this.employees.filter((employee) => this.selectedOffices.includes(employee.office));
+    },
   },
 
-  mounted() {
-    console.log(this.availableOffices);
+  methods: {
+    filterOffices(offices) {
+      this.selectedOffices = offices;
+    },
   },
 
   async asyncData() {
     const ENDPOINT = 'https://api.1337co.de/v3/employees';
     // TODO: use polyfill or axios for better browser compatibility
     const response = await fetch(ENDPOINT, { headers: { Authorization: process.env.API_KEY } });
-    const employees = await response.json();
+    const employees = (await response.json())
+      // transform to be compatible with LeetEmployeeCard
+      .map((employee) => {
+        const {
+          name,
+          office,
+          imagePortraitUrl: imageUrl,
+          linkedIn: linkedinUrl,
+          gitHub: githubUrl,
+          twitter: twitterUrl,
+        } = employee;
+        return {
+          name,
+          imageUrl,
+          office,
+          linkedinUrl,
+          githubUrl,
+          twitterUrl,
+        };
+      });
     return { employees };
   },
 };
 </script>
 
 <style module>
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: var(--space-m);
+}
+
 .tempCard {
   max-width: 20rem;
 }
