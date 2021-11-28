@@ -30,6 +30,22 @@ export default {
     };
   },
 
+  computed: {
+    /** List of offices that have at least 1 employee */
+    availableOffices() {
+      return this.employees
+        .map((employee) => employee.office)
+        .reduce(
+          (result, current) => [ ...result, !result.includes(current) ? current : null ].filter((val) => val),
+          [],
+        );
+    },
+  },
+
+  mounted() {
+    console.log(this.availableOffices);
+  },
+
   async asyncData() {
     const ENDPOINT = 'https://api.1337co.de/v3/employees';
     // TODO: use polyfill or axios for better browser compatibility
