@@ -5,7 +5,7 @@
 </template>
 
 <script>
-export const validVals = { size: [ 's', 'm', 'l' ] };
+export const validVals = { size: [ 'xs', 's', 'm', 'l' ] };
 
 export default {
   props: {
@@ -32,6 +32,7 @@ export default {
 }
 
 $_sizes: (
+  xs: --font-size-xs,
   s: --font-size-s,
   m: --font-size-m,
   l: --font-size-l,
