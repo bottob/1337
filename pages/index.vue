@@ -1,45 +1,61 @@
 <template>
-  <div :class="$style.container">
-    <LeetTitle tag="h1" size="xl">
-      Meet our team
-    </LeetTitle>
+  <div>
+    <header :class="$style.header">
+      <LeetTheme theme="dark">
+        <div :class="$style.container">
+          <div :class="$style.headerStack">
+            <LeetTitle tag="h1" size="xl">
+              Meet our team
+            </LeetTitle>
+            <LeetTitle size="l">
+              Get to meet all of our Ninjas!
+            </LeetTitle>
+          </div>
+        </div>
+      </LeetTheme>
+    </header>
 
-    <br>
+    <main :class="$style.content">
+      <div :class="$style.container">
+        <div :class="$style.contentStack">
+          <LeetFilters
+            :available-offices="availableOffices"
+            :selected-offices="selectedOffices"
+            :name-filter="nameFilter"
+            @filter-by-office="filterByOffice"
+            @filter-by-name="filterByName" />
 
-    <LeetFilters
-      :available-offices="availableOffices"
-      :selected-offices="selectedOffices"
-      :name-filter="nameFilter"
-      @filter-by-office="filterByOffice"
-      @filter-by-name="filterByName" />
+          <LeetEmployeeGrid
+            :employees="employees"
+            :name-filter="nameFilter"
+            :selected-offices="selectedOffices" />
+        </div>
+      </div>
+    </main>
 
-    <br>
-
-    <LeetEmployeeGrid
-      :employees="employees"
-      :name-filter="nameFilter"
-      :selected-offices="selectedOffices" />
-
-    <br>
-
-    <LeetTitle>Hello world</LeetTitle>
-
-    <br>
-
-    <div :class="$style.tempCard">
-      <LeetEmployeeCard v-bind="test" />
-    </div>
+    <footer :class="$style.footer">
+      <div :class="$style.container">
+        <LeetTitle tag="h2" size="l">
+          Want to join the team? Apply today!
+        </LeetTitle>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script>
-import LeetEmployeeCard from '@/components/LeetEmployeeCard';
 import LeetEmployeeGrid from '@/components/LeetEmployeeGrid';
 import LeetFilters from '@/components/LeetFilters';
+import LeetTheme from '@/components/LeetTheme';
 import LeetTitle from '@/components/LeetTitle';
 
 export default {
-  components: { LeetTitle, LeetFilters, LeetEmployeeCard, LeetEmployeeGrid },
+  components: {
+    LeetTitle,
+    LeetFilters,
+    LeetEmployeeGrid,
+    LeetTheme,
+  },
 
   data() {
     return {
@@ -106,7 +122,12 @@ export default {
 };
 </script>
 
-<style module>
+<style module lang="scss">
+%stack {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
 .container {
   width: 100%;
   max-width: 82rem;
@@ -114,7 +135,30 @@ export default {
   margin: 0 auto;
 }
 
-.tempCard {
-  max-width: 20rem;
+.header {
+  background: var(--color-brand)
+    url('https://tretton37.com/assets/i/sneak-peak/one-tretton.jpg') no-repeat
+    center center/cover;
+  background-blend-mode: multiply;
+  padding: var(--space-xxxl) 0;
+}
+
+.headerStack {
+  @extend %stack;
+  grid-gap: var(--space-s);
+}
+
+.content {
+  padding: var(--space-xl) 0;
+}
+
+.contentStack {
+  @extend %stack;
+  grid-gap: var(--space-xl);
+}
+
+.footer {
+  background: var(--color-brand-accent);
+  padding: var(--space-xl) 0;
 }
 </style>

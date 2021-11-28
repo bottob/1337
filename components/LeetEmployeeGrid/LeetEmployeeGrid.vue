@@ -74,7 +74,6 @@ export default {
       };
       const callback = (entries) => {
         entries.forEach((entry) => {
-          console.log(entry);
           if (!entry.isIntersecting) return;
           this.amountShown += 4;
         });
