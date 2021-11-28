@@ -1,5 +1,11 @@
 <template>
   <div>
-    <h1>Hello world</h1>
+    <LeetTitle>Hello world</LeetTitle>
   </div>
 </template>
+
+<script>
+import LeetTitle from '@/components/LeetTitle';
+
+export default { components: { LeetTitle } };
+</script>

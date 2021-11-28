@@ -24,8 +24,8 @@ export default {
     '@/assets/styles/global.scss',
   ],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  // disable auto component imports
+  components: false,
 
   build: { postcss: true },
 };
