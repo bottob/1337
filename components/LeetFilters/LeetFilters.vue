@@ -1,7 +1,7 @@
 <template>
   <section :class="$style.root">
     <header>
-      <LeetTitle tag="h3">
+      <LeetTitle tag="h3" size="l">
         Filter employees
       </LeetTitle>
     </header>

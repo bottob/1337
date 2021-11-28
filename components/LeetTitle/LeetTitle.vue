@@ -5,7 +5,7 @@
 </template>
 
 <script>
-export const validVals = { size: [ 'xs', 's', 'm', 'l' ] };
+export const validVals = { size: [ 'xs', 's', 'm', 'l', 'xl' ] };
 
 export default {
   props: {
@@ -25,22 +25,43 @@ export default {
 </script>
 
 <style module lang="scss">
+@use '@/assets/styles/media-queries' as mq;
+
 .root {
   font-family: var(--font-family);
   color: var(--color-title);
   letter-spacing: -0.01em;
 }
+.xlSize {
+  font-size: var(--font-size-xl);
+}
+.lSize {
+  font-size: var(--font-size-l);
+}
+.mSize {
+  font-size: var(--font-size-m);
+}
+.sSize {
+  font-size: var(--font-size-s);
+}
+.xsSize {
+  font-size: var(--font-size-xs);
+}
 
-$_sizes: (
-  xs: --font-size-xs,
-  s: --font-size-s,
-  m: --font-size-m,
-  l: --font-size-l,
-);
-
-@each $_key, $_val in $_sizes {
-  .#{$_key}Size {
-    font-size: var(#{$_val});
+@include mq.landscape {
+  .xlSize {
+    font-size: clamp(
+      calc(var(--font-size-m) + var(--font-size-l) / 5),
+      6.7vw,
+      var(--font-size-xl)
+    );
+  }
+  .lSize {
+    font-size: clamp(
+      calc(var(--font-size-s) + var(--font-size-m) / 5),
+      4.2vw,
+      var(--font-size-l)
+    );
   }
 }
 </style>

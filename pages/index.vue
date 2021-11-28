@@ -1,5 +1,11 @@
 <template>
   <div :class="$style.container">
+    <LeetTitle tag="h1" size="xl">
+      Meet our team
+    </LeetTitle>
+
+    <br>
+
     <LeetFilters
       :available-offices="availableOffices"
       :selected-offices="selectedOffices"
