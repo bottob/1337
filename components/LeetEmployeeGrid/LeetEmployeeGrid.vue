@@ -52,11 +52,8 @@ export default {
 <style module>
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* fit as many cards per row as possible, each being at least 15rem wide */
+  grid-template-columns: repeat(auto-fit, minmax(15rem, auto));
   grid-gap: var(--space-m);
-}
-
-.tempCard {
-  max-width: 20rem;
 }
 </style>
