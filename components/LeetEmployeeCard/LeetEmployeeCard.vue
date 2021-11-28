@@ -12,7 +12,7 @@
       </div>
 
       <!-- for semantic reasons title comes first. We visually reorder the elements via CSS -->
-      <img :src="imageUrl" :alt="name" :class="$style.img">
+      <img :src="imageUrlComputed" :alt="name" :class="$style.img">
     </header>
 
     <footer v-if="socials.length" :class="$style.socials">
@@ -42,16 +42,19 @@ export default {
       type: String,
       required: true,
     },
-    imageUrl: {
-      type: String,
-      required: true,
-    },
+    imageUrl: { type: String },
     linkedinUrl: { type: String },
     githubUrl: { type: String },
     twitterUrl: { type: String },
   },
 
   computed: {
+    /* In case that no image is available, show placeholder instead */
+    imageUrlComputed() {
+      return (
+        this.imageUrl || 'https://avatars.githubusercontent.com/u/583231?v=4'
+      );
+    },
     socials() {
       return [
         {
