@@ -114,6 +114,11 @@ export default {
     },
   },
 
+  mounted() {
+    // initialize
+    this.updateOffices(this.availableOffices);
+  },
+
   methods: {
     updateOffices(val) {
       this.$emit('filter-by-office', val);
