@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="$style.container">
     <LeetFilters
       :available-offices="availableOffices"
       :selected-offices="selectedOffices"
@@ -101,6 +101,13 @@ export default {
 </script>
 
 <style module>
+.container {
+  width: 100%;
+  max-width: 82rem;
+  padding: 0 var(--space-m);
+  margin: 0 auto;
+}
+
 .tempCard {
   max-width: 20rem;
 }

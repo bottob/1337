@@ -120,7 +120,6 @@ export default {
 
 .img {
   width: 100%;
-  max-width: 15rem;
   aspect-ratio: 1;
   object-fit: cover;
   object-position: center top;
