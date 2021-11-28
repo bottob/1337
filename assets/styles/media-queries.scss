@@ -1,0 +1,29 @@
+// breakpoints were taken from bootstrap: https://getbootstrap.com/docs/4.1/layout/overview/#responsive-breakpoints
+
+@mixin desktop {
+  @content;
+}
+
+@mixin laptop {
+  @media (max-width: 1999px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: 991px) {
+    @content;
+  }
+}
+
+@mixin landscape {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin handheld {
+  @media (max-width: 575px) {
+    @content;
+  }
+}

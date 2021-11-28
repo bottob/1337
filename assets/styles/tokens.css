@@ -1,0 +1,37 @@
+/* TODO: do proper design token setup using style dictionary */
+
+:root {
+  /* === COLOR === */
+  /* palette */
+  --color-palette-cornflower-blue: #002b55;
+  --color-palette-mantis: #80c565;
+  --color-palette-shark: #26282a;
+  --color-palette-white: #fff;
+  --color-palette-ghost: #c9cbd1;
+
+  --color-brand: var(--color-palette-cornflower-blue);
+  --color-brand-accent: var(--color-palette-mantis);
+  /* light theme */
+  --color-title: var(--color-palette-cornflower-blue);
+  --color-text: var(--color-palette-shark);
+  --color-link: var(--color-palette-mantis);
+  --color-border: var(--color-palette-ghost);
+  /* dark theme */
+  --color-title-reverse: var(--color-palette-white);
+  --color-text-reverse: var(--color-palette-white);
+  --color-link-reverse: var(--color-palette-mantis);
+  --color-border: var(--color-palette-ghost);
+
+  /* === TYPOGRAPHY === */
+  --font-family: 'Montserrat', sans-serif;
+  --font-size-s: 1rem;
+  --font-size-m: 1.25rem;
+  --font-size-l: 2rem;
+
+  /* === SPACE === */
+  --space-xs: 0.5rem;
+  --space-s: 0.75rem;
+  --space-m: 1.25rem;
+  --space-l: 2rem;
+  --space-xl: 3.25rem;
+}

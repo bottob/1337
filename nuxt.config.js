@@ -18,7 +18,11 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: [
+    'node_modules/minireset.css',
+    '@/assets/styles/tokens.css',
+    '@/assets/styles/global.scss',
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
