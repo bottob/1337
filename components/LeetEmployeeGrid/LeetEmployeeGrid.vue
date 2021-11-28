@@ -1,13 +1,21 @@
 <template>
-  <div v-if="employeesFiltered.length" :class="$style.grid">
-    <LeetEmployeeCard
-      v-for="employee in employeesFiltered.slice(0, 15)"
-      :key="employee.name"
-      v-bind="employee" />
-  </div>
+  <div>
+    <div v-show="employeesFiltered.length">
+      <div :class="$style.grid">
+        <LeetEmployeeCard
+          v-for="employee in employeesFiltered.slice(0, amountShown)"
+          :key="employee.name"
+          v-bind="employee" />
+      </div>
 
-  <div v-else>
-    <LeetTitle> Noone is matching the current filters! </LeetTitle>
+      <p v-if="!allAreShown" ref="loadingIndicator">
+        loading more...
+      </p>
+    </div>
+
+    <div v-if="!employeesFiltered.length">
+      <LeetTitle> Noone is matching the current filters! </LeetTitle>
+    </div>
   </div>
 </template>
 
@@ -33,6 +41,10 @@ export default {
     selectedOffices: { type: Array },
   },
 
+  data() {
+    return { amountShown: 12 };
+  },
+
   computed: {
     /** List of employees that is currently being displayed */
     employeesFiltered() {
@@ -44,6 +56,31 @@ export default {
           .includes(this.nameFilter.toLowerCase());
         return worksAtOffice && (!nameFilterIsApplied || matchesNameFilter);
       });
+    },
+    allAreShown() {
+      return this.amountShown >= this.employees.length;
+    },
+  },
+
+  mounted() {
+    this.makeInifinite();
+  },
+
+  methods: {
+    makeInifinite() {
+      const options = {
+        root: null,
+        rootMargin: '100px',
+        threshold: 0.2,
+      };
+      const callback = (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          this.amountShown += 4;
+        });
+      };
+      const observer = new IntersectionObserver(callback, options);
+      observer.observe(this.$refs.loadingIndicator);
     },
   },
 };
