@@ -9,19 +9,6 @@
   --color-palette-white: #fff;
   --color-palette-ghost: #c9cbd1;
 
-  --color-brand: var(--color-palette-cornflower-blue);
-  --color-brand-accent: var(--color-palette-mantis);
-  /* light theme */
-  --color-title: var(--color-palette-cornflower-blue);
-  --color-text: var(--color-palette-shark);
-  --color-link: var(--color-palette-mantis);
-  --color-border: var(--color-palette-ghost);
-  /* dark theme */
-  --color-title-reverse: var(--color-palette-white);
-  --color-text-reverse: var(--color-palette-white);
-  --color-link-reverse: var(--color-palette-mantis);
-  --color-border: var(--color-palette-ghost);
-
   /* === TYPOGRAPHY === */
   --font-family: 'Montserrat', sans-serif;
   --font-size-xs: 0.75rem;
