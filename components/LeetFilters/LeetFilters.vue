@@ -1,19 +1,29 @@
 <template>
   <div>
-    <LeetTitle tag="h4" size="s">
-      Offices
-    </LeetTitle>
-
-    <div v-for="office in availableOffices" :key="office">
-      <input
-        :id="`office-${office}`"
-        v-model="selectedOfficesComputed"
-        :value="office"
-        name="offices"
-        type="checkbox">
-      <LeetTitle tag="label" size="xs" :for="`office-${office}`">
-        {{ office }}
+    <div>
+      <LeetTitle tag="h4" size="s">
+        Offices
       </LeetTitle>
+
+      <div v-for="office in availableOffices" :key="office">
+        <input
+          :id="`office-${office}`"
+          v-model="selectedOfficesComputed"
+          :value="office"
+          name="offices"
+          type="checkbox">
+        <LeetTitle tag="label" size="xs" :for="`office-${office}`">
+          {{ office }}
+        </LeetTitle>
+      </div>
+    </div>
+
+    <div>
+      <LeetTitle tag="h4" size="s">
+        Name
+      </LeetTitle>
+
+      <input v-model="nameFilterComputed" type="text">
     </div>
   </div>
 </template>
@@ -35,6 +45,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    nameFilter: {
+      type: String,
+      default: '',
+    },
   },
 
   computed: {
@@ -46,7 +60,15 @@ export default {
         return this.selectedOffices;
       },
       set(val) {
-        this.$emit('filter-offices', val);
+        this.$emit('filter-by-office', val);
+      },
+    },
+    nameFilterComputed: {
+      get() {
+        return this.nameFilter;
+      },
+      set(val) {
+        this.$emit('filter-by-name', val);
       },
     },
   },

@@ -3,7 +3,9 @@
     <LeetFilters
       :available-offices="availableOffices"
       :selected-offices="selectedOffices"
-      @filter-offices="filterOffices" />
+      :name-filter="nameFilter"
+      @filter-by-office="filterByOffice"
+      @filter-by-name="filterByName" />
 
     <br>
 
@@ -35,6 +37,7 @@ export default {
   data() {
     return {
       selectedOffices: [],
+      nameFilter: '',
       test: {
         name: 'Octocat',
         office: 'Stockholm',
@@ -56,14 +59,25 @@ export default {
           [],
         );
     },
+    /** List of employees that is currently being displayed */
     employeesFiltered() {
-      return this.employees.filter((employee) => this.selectedOffices.includes(employee.office));
+      return this.employees.filter((employee) => {
+        const worksAtOffice = this.selectedOffices.includes(employee.office);
+        const nameFilterIsApplied = Boolean(this.nameFilter);
+        const matchesNameFilter = employee.name
+          .toLowerCase()
+          .includes(this.nameFilter.toLowerCase());
+        return worksAtOffice && (!nameFilterIsApplied || matchesNameFilter);
+      });
     },
   },
 
   methods: {
-    filterOffices(offices) {
+    filterByOffice(offices) {
       this.selectedOffices = offices;
+    },
+    filterByName(name) {
+      this.nameFilter = name;
     },
   },
 
