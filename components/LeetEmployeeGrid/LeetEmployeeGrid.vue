@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-show="employeesFiltered.length">
+    <div v-show="employeesFiltered.length" :class="$style.gridParent">
       <div :class="$style.grid">
         <LeetEmployeeCard
           v-for="employee in employeesFiltered.slice(0, amountShown)"
@@ -8,9 +8,7 @@
           v-bind="employee" />
       </div>
 
-      <p v-if="!allAreShown" ref="loadingIndicator">
-        loading more...
-      </p>
+      <LeetSpinner v-if="!allAreShown" ref="spinner" />
     </div>
 
     <div v-if="!employeesFiltered.length">
@@ -21,10 +19,11 @@
 
 <script>
 import LeetEmployeeCard from '@/components/LeetEmployeeCard';
+import LeetSpinner from '@/components/LeetSpinner';
 import LeetTitle from '@/components/LeetTitle';
 
 export default {
-  components: { LeetEmployeeCard, LeetTitle },
+  components: { LeetEmployeeCard, LeetTitle, LeetSpinner },
 
   props: {
     /** Unfiltered list of all employees. */
@@ -75,18 +74,29 @@ export default {
       };
       const callback = (entries) => {
         entries.forEach((entry) => {
+          console.log(entry);
           if (!entry.isIntersecting) return;
           this.amountShown += 4;
         });
       };
       const observer = new IntersectionObserver(callback, options);
-      observer.observe(this.$refs.loadingIndicator);
+      observer.observe(this.$refs.spinner.$el);
     },
   },
 };
 </script>
 
-<style module>
+<style module lang="scss">
+%stack {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.gridParent {
+  @extend %stack;
+  grid-gap: var(--space-m);
+}
+
 .grid {
   display: grid;
   /* fit as many cards per row as possible, each being at least 15rem wide */
