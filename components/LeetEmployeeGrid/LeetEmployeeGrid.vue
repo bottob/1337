@@ -1,17 +1,22 @@
 <template>
-  <div :class="$style.grid">
+  <div v-if="employeesFiltered.length" :class="$style.grid">
     <LeetEmployeeCard
       v-for="employee in employeesFiltered.slice(0, 15)"
       :key="employee.name"
       v-bind="employee" />
   </div>
+
+  <div v-else>
+    <LeetTitle> Noone is matching the current filters! </LeetTitle>
+  </div>
 </template>
 
 <script>
 import LeetEmployeeCard from '@/components/LeetEmployeeCard';
+import LeetTitle from '@/components/LeetTitle';
 
 export default {
-  components: { LeetEmployeeCard },
+  components: { LeetEmployeeCard, LeetTitle },
 
   props: {
     /** Unfiltered list of all employees. */

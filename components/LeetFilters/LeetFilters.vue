@@ -116,7 +116,7 @@ export default {
 
   mounted() {
     // initialize
-    this.updateOffices(this.availableOffices);
+    this.updateOffices(this.selectedOfficesComputed);
   },
 
   methods: {
@@ -129,6 +129,8 @@ export default {
     onAllToggle(e) {
       const isChecked = e.target.checked;
 
+      this.allOfficesAreSelected = isChecked;
+
       /* If "All" option is manually being checked, select all offices */
       if (isChecked) {
         this.updateOffices(this.availableOffices);
@@ -137,7 +139,6 @@ export default {
         /* If "All" option is manually being unchecked, unselect all offices */
         this.updateOffices([]);
       }
-      this.allOfficesAreSelected = isChecked;
     },
   },
 };
