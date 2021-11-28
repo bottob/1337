@@ -12,7 +12,9 @@
       </div>
 
       <!-- for semantic reasons title comes first. We visually reorder the elements via CSS -->
-      <img :src="imageUrlComputed" :alt="name" :class="$style.img">
+      <div
+        :class="$style.img"
+        :style="`background-image: url('${imageUrlComputed}')`" />
     </header>
 
     <footer v-if="socials.length" :class="$style.socials">
@@ -120,13 +122,21 @@ export default {
 
 .img {
   width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  object-position: center top;
+  max-width: 20rem;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
   border-radius: 9999px;
   border: 4px solid var(--color-brand-accent);
   /* move image above title */
   @extend %sortToFirst;
+
+  &:after {
+    // preserve square aspect ratio
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
 }
 
 .socials {
