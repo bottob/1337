@@ -58,30 +58,7 @@ export default {
   },
 
   data() {
-    return {
-      selectedOffices: [],
-      nameFilter: '',
-      test: {
-        name: 'Octocat',
-        office: 'Stockholm',
-        imageUrl: 'https://avatars.githubusercontent.com/u/583231?v=4',
-        linkedinUrl: 'https://www.linkedin.com',
-        githubUrl: 'https://github.com',
-        twitterUrl: 'https://twitter.com',
-      },
-    };
-  },
-
-  computed: {
-    /** List of offices that have at least 1 employee */
-    availableOffices() {
-      return this.employees
-        .map((employee) => employee.office)
-        .reduce(
-          (result, current) => [ ...result, !result.includes(current) ? current : null ].filter((val) => val),
-          [],
-        );
-    },
+    return { nameFilter: '' };
   },
 
   methods: {
@@ -117,7 +94,20 @@ export default {
           twitterUrl,
         };
       });
-    return { employees };
+
+    // List of offices that have at least 1 employee
+    const availableOffices = employees
+      .map((employee) => employee.office)
+      .reduce(
+        (result, current) => [ ...result, !result.includes(current) ? current : null ].filter((val) => val),
+        [],
+      );
+
+    return {
+      employees,
+      availableOffices,
+      selectedOffices: availableOffices,
+    };
   },
 };
 </script>
