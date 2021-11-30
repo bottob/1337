@@ -75,13 +75,6 @@ export default {
     },
   },
 
-  data() {
-    return {
-      // tracks if "All" option is checked
-      allOfficesAreSelected: true,
-    };
-  },
-
   computed: {
     /**
       to be able to use `v-model` on the inputs, we can not directly modify the props.
@@ -90,13 +83,33 @@ export default {
     */
     selectedOfficesComputed: {
       get() {
-        // if "All" option is enabled, select all offices
-        return this.allOfficesAreSelected ?
-          this.availableOffices :
-          this.selectedOffices;
+        return this.selectedOffices;
       },
       set(val) {
         this.updateOffices(val);
+      },
+    },
+    /**
+      tracks if "All" option is checked.
+      Note that this option might change in 2 ways:
+      1. The user checks/unchecks individual offices
+        -> will check if all the available offices are checked
+      2. The user manually clicks the "All" option
+        -> will update `selectedOfficesComputed` to be full or empty
+    */
+    allOfficesAreSelected: {
+      get() {
+        return this.selectedOffices.length === this.availableOffices.length;
+      },
+      set(val) {
+        if (val) {
+          // select all offices
+          this.selectedOfficesComputed = this.availableOffices;
+        }
+        else {
+          // remove all offices
+          this.selectedOfficesComputed = [];
+        }
       },
     },
     nameFilterComputed: {
@@ -106,19 +119,6 @@ export default {
       set(val) {
         this.updateName(val);
       },
-    },
-  },
-
-  watch: {
-    selectedOffices(val) {
-      /* "All" option should be checked if all offices are selected */
-      if (val.length < this.availableOffices.length) {
-        this.allOfficesAreSelected = false;
-      }
-      else {
-        /* "All" option should be unchecked if at least 1 office is not selected */
-        this.allOfficesAreSelected = true;
-      }
     },
   },
 
@@ -135,18 +135,7 @@ export default {
       this.$emit('filter-by-name', val);
     },
     onAllToggle(e) {
-      const isChecked = e.target.checked;
-
-      this.allOfficesAreSelected = isChecked;
-
-      /* If "All" option is manually being checked, select all offices */
-      if (isChecked) {
-        this.updateOffices(this.availableOffices);
-      }
-      else {
-        /* If "All" option is manually being unchecked, unselect all offices */
-        this.updateOffices([]);
-      }
+      this.allOfficesAreSelected = e.target.checked;
     },
   },
 };
