@@ -25,7 +25,7 @@ Although unconventional on an employees page, I thought this feature would give 
 
 ### Infinity scroll
 
-The current employee page does not apply any kind of lazy loading yet - it fires 282 image requests and downloads 15MB on initial page load! Adding infinity scroll offered a great chance to improve the performance of the page for better user experience and SEO.
+The current employee page does not apply any kind of lazy loading yet - it fires 282 image requests and downloads 15MB of images on initial page load! Adding infinity scroll offered a great chance to improve the performance of the page for better user experience and SEO.
 From the 3 options available (infinity scroll, pagination, load more button) the first one was the only one I've never dealt with before, so that was the pick.
 
 ### Available on a free public URL
@@ -76,7 +76,7 @@ We can discuss them in detail together :)
 
 Design:
 
-- use style [dictionary](https://github.com/amzn/style-dictionary) or [theo](https://github.com/salesforce-ux/theo) for multi-format design token management
+- use [style dictionary](https://github.com/amzn/style-dictionary) or [theo](https://github.com/salesforce-ux/theo) for multi-format design token management
 - staggered animation once cards enter the viewport
 - apply a dark theme to all those employees that have been marked as "highlighted"
 - display a small button that scrolls back to the top after having scrolled down a bit
