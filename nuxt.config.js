@@ -6,7 +6,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: '1337',
+    title: '1337 - Meet the Team',
     htmlAttrs: { lang: 'en' },
     meta: [
       { charset: 'utf-8' },
@@ -14,7 +14,7 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [ { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' } ],
+    link: [ { rel: 'icon', type: 'image/x-icon', href: '/images/1337-favicon.png' } ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
