@@ -29,7 +29,7 @@ export default {
     /** Unfiltered list of all employees. */
     employees: {
       type: Array,
-      required: true,
+      default: () => [],
     },
     /** Name that should be filtered for. When empty, no name filter will be applied */
     nameFilter: {
@@ -48,12 +48,16 @@ export default {
     /** List of employees that is currently being displayed */
     employeesFiltered() {
       return this.employees.filter((employee) => {
-        const worksAtOffice = this.selectedOffices.includes(employee.office);
+        const officeFilterIsApplied = Boolean(this.selectedOffices);
         const nameFilterIsApplied = Boolean(this.nameFilter);
-        const matchesNameFilter = employee.name
-          .toLowerCase()
-          .includes(this.nameFilter.toLowerCase());
-        return worksAtOffice && (!nameFilterIsApplied || matchesNameFilter);
+
+        const worksAtOffice =
+          !officeFilterIsApplied ||
+          this.selectedOffices.includes(employee.office);
+        const matchesNameFilter =
+          !nameFilterIsApplied ||
+          employee.name.toLowerCase().includes(this.nameFilter.toLowerCase());
+        return worksAtOffice && matchesNameFilter;
       });
     },
     spinnerIsVisible() {
