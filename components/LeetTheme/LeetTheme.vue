@@ -7,8 +7,15 @@
 <script>
 export const validVals = { theme: [ 'light', 'dark' ] };
 
+/**
+ * Wrapper that applies a local theme using CSS custom properties.
+ *
+ * If decendants use the tokens defined in the styles section of this component,
+ * they will update their colors automatically if the theme changes.
+ */
 export default {
   props: {
+    /** Theme that should be applied to descendant elements */
     theme: {
       type: String,
       default: 'light',

@@ -80,6 +80,7 @@ Design:
 - staggered animation once cards enter the viewport
 - apply a dark theme to all those employees that have been marked as "highlighted"
 - display a small button that scrolls back to the top after having scrolled down a bit
+- reuse certain patterns like stack layouts by creating layout components, global classes or SCSS mixins
 
 Functionality:
 

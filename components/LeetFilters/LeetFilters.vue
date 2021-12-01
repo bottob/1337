@@ -54,6 +54,13 @@
 <script>
 import LeetTitle from '../LeetTitle';
 
+/**
+ * Controls for manipulating the employees filter.
+ *
+ * Emits 2 events:
+ * -> 'filter-by-office': array. Should be feed back as `selectedOffices` prop
+ * -> 'filter-by-name': string. Should be feed back as `nameFilter` prop
+ */
 export default {
   components: { LeetTitle },
 

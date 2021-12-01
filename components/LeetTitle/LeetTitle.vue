@@ -9,6 +9,7 @@ export const validVals = { size: [ 'xs', 's', 'm', 'l', 'xl' ] };
 
 export default {
   props: {
+    /** Visual size of the title */
     size: {
       type: String,
       default: 'm',
@@ -16,6 +17,7 @@ export default {
         return validVals.size.includes(val);
       },
     },
+    /** HTML tag to be rendered as */
     tag: {
       type: String,
       default: 'p',

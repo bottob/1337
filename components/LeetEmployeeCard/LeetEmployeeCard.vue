@@ -36,17 +36,23 @@ export default {
   components: { LeetTitle },
 
   props: {
+    /** Name of employee */
     name: {
       type: String,
       required: true,
     },
+    /** Office the employee is working for */
     office: {
       type: String,
       required: true,
     },
+    /** Optional public URL of an image of this person. If not provided, a placeholder will be shown instead. */
     imageUrl: { type: String },
+    /** Optional URL to linkedin profile */
     linkedinUrl: { type: String },
+    /** Optional URL to github profile */
     githubUrl: { type: String },
+    /** Optional URL to twitter profile */
     twitterUrl: { type: String },
   },
 

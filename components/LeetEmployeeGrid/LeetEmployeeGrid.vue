@@ -32,11 +32,14 @@ import LeetEmployeeCard from '@/components/LeetEmployeeCard';
 import LeetSpinner from '@/components/LeetSpinner';
 import LeetTitle from '@/components/LeetTitle';
 
+/**
+ * Displays list of employees and applies provided filters. Transitions when filtering are animated.
+ */
 export default {
   components: { LeetEmployeeCard, LeetTitle, LeetSpinner },
 
   props: {
-    /** Unfiltered list of all employees. */
+    /** Unfiltered list of all employees. Each employee item should respect the props defined by `LeetEmployeeCard` */
     employees: {
       type: Array,
       default: () => [],
