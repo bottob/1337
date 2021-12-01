@@ -1,12 +1,108 @@
-# 1337
+# tretton37 code assignment
 
-## Environment variables
+## The product
 
-An `.env` file must be present. Make sure to never commit this file. The following keys should be set:
+As solution for my code assignment, I rebuilt tretton37's [people page](https://tretton37.com/meet). It fetches a list of all employees from their server and displays all of them in a grid. The list can be filtered by office and be employee name, and the individual cards are rendered lazily.
+
+You can see the result here!
+https://1337.netlify.app/
+
+## Features selected
+
+From the list of features available, I choose the following:
+
+### Responsive design
+
+Responsiveness is one of the defining features of websites as a medium. Websites having to work on all kind of devices is a given nowadays, so this was an easy pick.
+
+### Modern CSS
+
+Modern CSS comes with a lot of awesome features, like CSS custom properties, blend modes, grid and much more. Grid has made layouting a blast (anyone remembers having to build multi-column designs using floats?), and CSS variables allow us support multiple themes with little effort. Easy pick as well :)
+
+### Filter by name & office
+
+Although unconventional on an employees page, I thought this feature would give me the chance to go a bit more into depth when it comes to component design. The filtering itself is easy, but I knew in advance that getting the data flow in the controls right would be a fun challenge. To make it a bit more difficult (and user friendly), I added an "All" option as well!
+
+### Infinity scroll
+
+The current employee page does not apply any kind of lazy loading yet - it fires 282 image requests and downloads 15MB on initial page load! Adding infinity scroll offered a great chance to improve the performance of the page for better user experience and SEO.
+From the 3 options available (infinity scroll, pagination, load more button) the first one was the only one I've never dealt with before, so that was the pick.
+
+### Available on a free public URL
+
+The goal of building any page is for the page to be seen, not to be limited to the eyes of a few developers that know how to run the code :)
+https://1337.netlify.app/
+
+### Integration tests
+
+I must admit that picking the testing feature was difficult for me. For components, so far I tested everything using visual regression tests, unit tests I would only use for testing JavaScript functionalities. This task was a great opportunity to get familiar with [Vue Test Utils](https://vue-test-utils.vuejs.org/).
+
+## Code design
+
+### Framework choice & folder structure
+
+I picked [Vue.js](https://vuejs.org/) as a framework, and [Nuxt.js](https://nuxtjs.org/) as a meta framework. With both I have been working professionally for years, so I would need to spend the least amount of time on setting things up for this task.
+
+I use the default folder structure of Nuxt.js:
+
+- `assets/`: Contains uncompiled assets like SCSS files
+- `components/`: Contains reusable components
+- `pages/index.vue`: The page
+- `layouts/default.vue`: Wrapper around every page
+- `static`: Static files that will be mapped to `/`
+
+### Content & representation
+
+When it comes to components, I try to keep representation (UI) and content separated. All of the components make no assumptions about the structure of the data. It is on page level that we fetch the data and transform it into a format that is compatible with our components.
+
+### Decoupled components
+
+We try to keep our components separated to allow for more flexibility and testability. For example, keeping the filters and the grid separated allows us to use alternative compositions as well.
+
+Note that it would have been totally possible to make the components even more generic, like changing `LeetEmployeeCard` to `LeetCard`, or having `LeetFilter` support any numbers of generic filters. For times sake I settled with more specific components.
+
+### Lifting state
+
+Only really applies to `LeetFilters`. This component itself doesn't actually keep track of the filters itself, it merely informs its parent about changes, which then feeds it back into the filter. This setup allows us to easily hook in other features that affect the filter choice - for example filters applied via URL that should change the initial selection of `LeetFilters` as well!
+
+### Design tokens & theming
+
+All design tokens are defined as CSS custom properties under `/assets/styles/tokens.css`. Opposed to SCSS variables, CSS variables can change in the browser. We use this to easily apply themes.
+Example: All titles apply the same color variable (`--color-title`). But they still display different colors, depending on the theme for the current section. Themes can be manipulated using `LeetTheme`.
+
+## Ideas for improvement
+
+We can discuss them in detail together :)
+
+Design:
+
+- use style [dictionary](https://github.com/amzn/style-dictionary) or [theo](https://github.com/salesforce-ux/theo) for multi-format design token management
+- staggered animation once cards enter the viewport
+- apply a dark theme to all those employees that have been marked as "highlighted"
+- display a small button that scrolls back to the top after having scrolled down a bit
+
+Functionality:
+
+- push filters to the browsers history. On page load, apply any filters present in the URL
+- Apply fuzzy search to name filter to allow slight typos in the search
+- Link each card to an individual employee page
+- Fix infinity scroll getting stuck (if you scroll very fast)
+
+Testing:
+
+- Use [Storybook](https://storybook.js.org/) to develop & test components in isolation
+- Add visual regression tests by taking screenshots automatically
+- Achieve full coverage
+
+## Install
+
+### Environment variables
+
+An `.env` file must be present in the root folder. Make sure to never commit this file. The following keys should be set:
 
 - `API_KEY`: API key for fetching employees
 
-## Build Setup
+### Build Setup
 
 ```bash
 # install dependencies
@@ -15,60 +111,21 @@ $ yarn install
 # serve with hot reload at localhost:3000
 $ yarn dev
 
-# build for production and launch server
-$ yarn build
-$ yarn start
-
 # generate static project
 $ yarn generate
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+For detailed explanation on how things work, check out Nuxt.js's[documentation](https://nuxtjs.org).
 
-## Special Directories
+### Other commands
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+```bash
+# run tests
+$ yarn test
 
-### `assets`
+# lint code
+$ yarn lint
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
-
-### `components`
-
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
-
-### `layouts`
-
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
-
-### `pages`
-
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
-
-### `plugins`
-
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
-
-### `static`
-
-This directory contains your static files. Each file inside this directory is mapped to `/`.
-
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+# lint code and fix automatically whenever possible
+$ yarn lint-fix
+```
