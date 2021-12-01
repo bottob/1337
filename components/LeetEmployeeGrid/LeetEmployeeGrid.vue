@@ -1,12 +1,20 @@
 <template>
   <div>
     <div v-show="employeesFiltered.length" :class="$style.gridParent">
-      <div :class="$style.grid">
+      <transition-group
+        tag="div"
+        name="grid"
+        :class="$style.grid"
+        :enter-class="$style.gridEnter"
+        :leave-to-class="$style.gridLeaveTo"
+        :enter-active-class="$style.gridEnterActive"
+        :leave-active-class="$style.gridLeaveActive">
         <LeetEmployeeCard
           v-for="employee in employeesFiltered.slice(0, amountShown)"
           :key="employee.name"
-          v-bind="employee" />
-      </div>
+          v-bind="employee"
+          :class="$style.gridItem" />
+      </transition-group>
 
       <div v-show="spinnerIsVisible" ref="spinner">
         <LeetSpinner />
@@ -123,5 +131,16 @@ export default {
   @include mq.handheld {
     grid-template-columns: repeat(1, 1fr);
   }
+}
+
+// vue transition classes
+.gridEnterActive,
+.gridLeaveActive {
+  transition: all 0.4s;
+}
+.gridEnter,
+.gridLeaveTo {
+  opacity: 0;
+  transform: translateY(var(--space-xs)) scale(0.8);
 }
 </style>
