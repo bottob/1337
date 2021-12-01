@@ -46,7 +46,11 @@
         By name
       </LeetTitle>
 
-      <input id="name" v-model="nameFilterComputed" type="text">
+      <input
+        id="name"
+        v-model="nameFilterComputed"
+        type="text"
+        :class="$style.textInput">
     </div>
   </section>
 </template>
@@ -175,5 +179,18 @@ export default {
   align-items: center;
   grid-template-columns: auto 1fr;
   grid-gap: var(--space-xs);
+}
+
+.textInput {
+  color: var(--font-text);
+  border: 1px solid var(--color-border);
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  padding: var(--space-xxs) var(--space-xs);
+
+  &:focus {
+    outline: solid 2px var(--color-brand-accent);
+    outline-offset: 1px;
+  }
 }
 </style>
