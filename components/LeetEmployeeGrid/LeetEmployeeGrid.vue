@@ -77,7 +77,7 @@ export default {
     makeInifinite() {
       const options = {
         root: null,
-        rootMargin: '100px',
+        rootMargin: '300px',
         threshold: 0.2,
       };
       const callback = (entries) => {
