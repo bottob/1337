@@ -8,7 +8,9 @@
           v-bind="employee" />
       </div>
 
-      <LeetSpinner v-show="spinnerIsVisible" ref="spinner" />
+      <div v-show="spinnerIsVisible" ref="spinner">
+        <LeetSpinner />
+      </div>
     </div>
 
     <div v-if="!employeesFiltered.length">
@@ -85,7 +87,7 @@ export default {
         });
       };
       const observer = new IntersectionObserver(callback, options);
-      observer.observe(this.$refs.spinner.$el);
+      observer.observe(this.$refs.spinner);
     },
   },
 };
