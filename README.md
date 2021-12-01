@@ -116,7 +116,7 @@ $ yarn dev
 $ yarn generate
 ```
 
-For detailed explanation on how things work, check out Nuxt.js's[documentation](https://nuxtjs.org).
+For detailed explanation on how things work, check out Nuxt.js's [documentation](https://nuxtjs.org).
 
 ### Other commands
 
